@@ -88,7 +88,7 @@ def day_of_the_week():
     except ValueError:
         return {
             "error": "Unable to convert value to datetime."
-        }
+        }, 400
 
     add_to_history(request)
     return {"weekday": get_day_of_week_on(date)}
@@ -128,14 +128,20 @@ def previous_requests():
 def current_age():
     """Returns a current age in years based on a given birthdate."""
     birthdate = request.args.get("birthdate")
+
+    if not isinstance(birthdate, str):
+        return {
+            "error": "Value for date parameter is invalid."
+        }, 400
+
     try:
-        date_format = convert_to_datetime(birthdate)
+        date_format = datetime.strptime(birthdate, "%Y-%m-%d")
     except ValueError:
         return {
             "error": "Value for date parameter is invalid."
         }, 400
 
-    return {"current_age": get_current_age(date_format)}
+    return {"current_age": get_current_age(date_format)}, 200
 
 
 if __name__ == "__main__":
