@@ -64,6 +64,8 @@ def days_between() -> dict:
             "error": "Unable to convert value to datetime."
         }, 400
 
+    add_to_history(request)
+
     return jsonify({"days": get_days_between(first_date, last_date)})
 
 
@@ -82,6 +84,8 @@ def day_of_the_week():
         return {
             "error": "Unable to convert value to datetime."
         }
+
+    add_to_history(request)
     return jsonify({"weekday", get_day_of_week_on(date)})
 
 
@@ -90,11 +94,12 @@ def previous_requests():
     """Returns details on the last `number` of requests to the API
     or
     deletes details of all previous requests to the API."""
-    if request.method == "GET":
-        number = 5
-        args = request.args.to_dict()
-        number = args.get("number")
-        app_history = app_history[-number:]
+    if request.method == "DELETE":
+        app_history.clear()
+        return {"status": "History cleared"}, 200
+
+    elif request.method == "GET":
+        number = request.args.get("number", 5)
 
         if not isinstance(number, int):
             return {
@@ -104,11 +109,10 @@ def previous_requests():
             return {
                 "error": "Number must be an integer between 1 and 20."}, 400
 
-        requests_made = []
-        for req in app_history[::-1]:
-            requests_made.append(req)
+        add_to_history(request)
 
-        return requests_made, 200
+        recent_requests = app_history[-number:]
+        return recent_requests[::-1], 200
 
 
 [{"method": "POST", "at": "12/02/2023 18:39", "route": "weekday"},
@@ -118,7 +122,11 @@ def previous_requests():
 @app.get("/current_age")
 def current_age():
     """Returns a current age in years based on a given birthdate."""
-    pass
+    birthdate = request.json
+    if not isinstance(birthdate, date):
+        return {
+            "error": "Value for date parameter is invalid."
+        }
 
 
 if __name__ == "__main__":
