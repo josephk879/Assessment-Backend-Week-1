@@ -4,10 +4,10 @@ rootdir: /home/runner/work/Assessment-Backend-Week-1/Assessment-Backend-Week-1
 collected 112 items
 
 days_api/test_api.py ....F.............................................. [ 45%]
-....F.FF.F.F..........                                                   [ 65%]
+....F....F.F..........                                                   [ 65%]
 days_api/test_date_functions.py .......................................  [100%]
 
-======================== 6 failed, 106 passed in 0.22s =========================
+======================== 4 failed, 108 passed in 0.29s =========================
 ************* Module app
 days_api/app.py:104:4: R1705: Unnecessary "elif" after "return", remove the leading "el" from "elif" (no-else-return)
 days_api/app.py:100:0: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
