@@ -3,21 +3,20 @@ platform linux -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
 rootdir: /home/runner/work/Assessment-Backend-Week-1/Assessment-Backend-Week-1
 collected 112 items
 
-days_api/test_api.py ......FF..F..................FFFFFFFFFFFFF.FFFFFFFF [ 45%]
-FFFFFFFFFF.FFFFFFFFFFF                                                   [ 65%]
+days_api/test_api.py ......FF.....................FFFFFFFFFFFF.......FFF [ 45%]
+FF..F.FF.F.FFFFFFFFFFF                                                   [ 65%]
 days_api/test_date_functions.py .......................................  [100%]
 
-======================== 45 failed, 67 passed in 0.38s =========================
+======================== 34 failed, 78 passed in 0.33s =========================
 ************* Module app
-days_api/app.py:73:4: W0621: Redefining name 'date' from outer scope (line 5) (redefined-outer-name)
-days_api/app.py:97:8: W0621: Redefining name 'app_history' from outer scope (line 12) (redefined-outer-name)
-days_api/app.py:89:0: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
-days_api/app.py:114:0: W0104: Statement seems to have no effect (pointless-statement)
-days_api/app.py:121:4: W0107: Unnecessary pass statement (unnecessary-pass)
-days_api/app.py:5:0: W0611: Unused date imported from datetime (unused-import)
+days_api/app.py:75:4: W0621: Redefining name 'date' from outer scope (line 5) (redefined-outer-name)
+days_api/app.py:97:4: R1705: Unnecessary "elif" after "return", remove the leading "el" from "elif" (no-else-return)
+days_api/app.py:93:0: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+days_api/app.py:118:0: W0104: Statement seems to have no effect (pointless-statement)
+days_api/app.py:123:0: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
 days_api/app.py:7:0: W0611: Unused Response imported from flask (unused-import)
 days_api/app.py:9:0: W0611: Unused get_current_age imported from date_functions (unused-import)
 
 -----------------------------------
-Your code has been rated at 9.08/10
+Your code has been rated at 9.22/10
 
