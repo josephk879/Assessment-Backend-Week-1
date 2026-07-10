@@ -46,7 +46,9 @@ def days_between() -> dict:
 
     for data in days_data.values():
         if not isinstance(data, str):
-            return {"error": "Missing required data."}, 400
+            return {
+                "error": "Unable to convert value to datetime."
+            }, 400
 
     try:
         first_date = convert_to_datetime(days_data["first"])
@@ -104,9 +106,10 @@ def previous_requests():
         return {"status": "History cleared"}, 200
 
     elif request.method == "GET":
-        number = int(request.args.get("number", 5))
+        try:
+            number = int(request.args.get("number", 5))
 
-        if not isinstance(number, int):
+        except ValueError:
             return {
                 "error": "Number must be an integer between 1 and 20."}, 400
 
