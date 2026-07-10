@@ -35,7 +35,7 @@ def index():
 
 
 @app.post("/between")
-def days_between() -> dict:
+def between() -> dict:
     """Returns the number of days between two dates."""
     days_data = request.json
     if len(days_data) < 2:
@@ -72,7 +72,7 @@ def days_between() -> dict:
 
 
 @app.post("/weekday")
-def day_of_the_week():
+def weekday():
     """Returns the day of the week a specific day is."""
     specific_date = request.json
     if len(specific_date) == 0:
