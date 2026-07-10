@@ -2,9 +2,9 @@
 
 # pylint: disable = no-name-in-module
 
-from datetime import datetime, date
+from datetime import datetime
 
-from flask import Flask, Response, request, jsonify
+from flask import Flask, request, jsonify
 
 from date_functions import (convert_to_datetime, get_day_of_week_on,
                             get_days_between, get_current_age)
@@ -72,26 +72,26 @@ def days_between() -> dict:
 @app.post("/weekday")
 def day_of_the_week():
     """Returns the day of the week a specific day is."""
-    date = request.json
-    if len(date) == 0:
+    specific_date = request.json
+    if len(specific_date) == 0:
         return {"error": "Missing required data."}, 400
-    if "date" not in date:
+    if "date" not in specific_date:
         return {"error": "Missing required data."}, 400
 
-    if not isinstance(date["date"], str):
+    if not isinstance(specific_date["date"], str):
         return {
             "error": "Unable to convert value to datetime."
         }, 400
 
     try:
-        date = convert_to_datetime(date["date"])
+        specific_date = convert_to_datetime(specific_date["date"])
     except ValueError:
         return {
             "error": "Unable to convert value to datetime."
         }, 400
 
     add_to_history(request)
-    return {"weekday": get_day_of_week_on(date)}
+    return {"weekday": get_day_of_week_on(specific_date)}
 
 
 @app.route("/history", methods=["GET", "DELETE"])
@@ -104,7 +104,7 @@ def previous_requests():
         return {"status": "History cleared"}, 200
 
     elif request.method == "GET":
-        number = request.args.get("number", 5)
+        number = int(request.args.get("number", 5))
 
         if not isinstance(number, int):
             return {
@@ -120,14 +120,10 @@ def previous_requests():
         return recent_requests[::-1], 200
 
 
-[{"method": "POST", "at": "12/02/2023 18:39", "route": "weekday"},
-    {"method": "POST", "at": "12/02/2023 18:36", "route": "weekday"}]
-
-
 @app.get("/current_age")
 def current_age():
     """Returns a current age in years based on a given birthdate."""
-    birthdate = request.args.get("birthdate")
+    birthdate = request.args.get("date")
 
     if not isinstance(birthdate, str):
         return {
@@ -141,7 +137,7 @@ def current_age():
             "error": "Value for date parameter is invalid."
         }, 400
 
-    return {"current_age": get_current_age(date_format)}, 200
+    return {"current_age": get_current_age(date_format.date())}, 200
 
 
 if __name__ == "__main__":
