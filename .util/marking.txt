@@ -3,19 +3,15 @@ platform linux -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
 rootdir: /home/runner/work/Assessment-Backend-Week-1/Assessment-Backend-Week-1
 collected 112 items
 
-days_api/test_api.py ......FF........................................FFF [ 45%]
-FF..F.FF.F.F.....FFFFF                                                   [ 65%]
+days_api/test_api.py ......FF...................................FF...... [ 45%]
+....F.FF.F.F..........                                                   [ 65%]
 days_api/test_date_functions.py .......................................  [100%]
 
-======================== 17 failed, 95 passed in 0.29s =========================
+======================== 9 failed, 103 passed in 0.29s =========================
 ************* Module app
-days_api/app.py:75:4: W0621: Redefining name 'date' from outer scope (line 5) (redefined-outer-name)
 days_api/app.py:102:4: R1705: Unnecessary "elif" after "return", remove the leading "el" from "elif" (no-else-return)
 days_api/app.py:98:0: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
-days_api/app.py:123:0: W0104: Statement seems to have no effect (pointless-statement)
-days_api/app.py:5:0: W0611: Unused date imported from datetime (unused-import)
-days_api/app.py:7:0: W0611: Unused Response imported from flask (unused-import)
 
 -----------------------------------
-Your code has been rated at 9.38/10
+Your code has been rated at 9.79/10
 
