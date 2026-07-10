@@ -78,6 +78,11 @@ def day_of_the_week():
     if "date" not in date:
         return {"error": "Missing required data."}, 400
 
+    if not isinstance(date["date"], str):
+        return {
+            "error": "Unable to convert value to datetime."
+        }, 400
+
     try:
         date = convert_to_datetime(date["date"])
     except ValueError:
@@ -86,7 +91,7 @@ def day_of_the_week():
         }
 
     add_to_history(request)
-    return jsonify({"weekday", get_day_of_week_on(date)})
+    return {"weekday": get_day_of_week_on(date)}
 
 
 @app.route("/history", methods=["GET", "DELETE"])
@@ -122,11 +127,15 @@ def previous_requests():
 @app.get("/current_age")
 def current_age():
     """Returns a current age in years based on a given birthdate."""
-    birthdate = request.json
-    if not isinstance(birthdate, date):
+    birthdate = request.args.get("birthdate")
+    try:
+        date_format = convert_to_datetime(birthdate)
+    except ValueError:
         return {
             "error": "Value for date parameter is invalid."
-        }
+        }, 400
+
+    return {"current_age": get_current_age(date_format)}
 
 
 if __name__ == "__main__":
